@@ -69,22 +69,6 @@ function addExpenseToTable(expense) {
     tableBody.appendChild(row);
 }
 
-// Spending Pie Chart
-const ctx = document.getElementById('spendingChart').getContext('2d');
-const data = {
-    labels: ['Food', 'Transport', 'Rent', 'Entertainment', 'Other'],
-    datasets: [{
-        label: 'Spending Categories',
-        data: [30, 15, 25, 20, 10], // Replace with actual values
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
-    }]
-};
-
-new Chart(ctx, {
-    type: 'pie',
-    data: data,
-});
-
 // Handle Savings Strategy Generation
 document.getElementById('generate-savings').addEventListener('click', async function() {
     const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
@@ -105,7 +89,7 @@ document.getElementById('generate-savings').addEventListener('click', async func
     }));
 
     // Example: Sending data to Gemini API (Replace with actual API details)
-    const response = await fetch('https://api.gemini-ai.com/generate-saving-strategy', {
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ spendingHabits })
@@ -128,7 +112,7 @@ document.getElementById('planning-form').addEventListener('submit', async functi
     const timeline = document.getElementById('timeline').value;
 
     // Example: Sending data to Gemini API (Replace with actual API details)
-    const response = await fetch('https://api.gemini-ai.com/generate-financial-plan', {
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ goals, timeline })
@@ -160,7 +144,7 @@ document.getElementById('generate-plan').addEventListener('click', async functio
     const riskAppetite = document.getElementById('risk-appetite').value;
 
     // Example API call to generative AI (replace with actual call)
-    const response = await fetch('https://api.gemini-ai.com/generate-plan', {
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ goal, timeHorizon, riskAppetite })
