@@ -177,3 +177,49 @@ document.getElementById('generate-plan').addEventListener('click', async functio
         <p><strong>AI's Advice:</strong> ${data.plan}</p>
     `;
 });
+
+// Function to aggregate spending data from localStorage
+function calculateSpendingData() {
+    let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+    const spendingByCategory = {
+        Food: 0,
+        Transport: 0,
+        Rent: 0,
+        Entertainment: 0,
+        Other: 0
+    };
+
+    expenses.forEach(expense => {
+        if (expense.type === 'Debit') {
+            spendingByCategory[expense.category] += expense.amount;
+        }
+    });
+
+    return {
+        labels: Object.keys(spendingByCategory),
+        data: Object.values(spendingByCategory)
+    };
+}
+
+// Function to render pie chart with dynamic data
+function renderPieChart() {
+    const spendingData = calculateSpendingData();
+
+    const ctx = document.getElementById('spendingChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: spendingData.labels,
+            datasets: [{
+                label: 'Spending Categories',
+                data: spendingData.data,
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+            }]
+        }
+    });
+}
+
+// Load the pie chart when the page loads
+window.onload = function() {
+    renderPieChart();
+};
