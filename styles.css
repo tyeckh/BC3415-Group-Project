@@ -164,3 +164,35 @@ form button {
     background-color: #005bb5;
 }
 
+/* Body Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f4f7f9;
+    text-align: center;
+}
+
+/* Title Styling */
+.landing-page h1 {
+    font-size: 3rem;
+    color: #003366;  /* Dark blue to match logo */
+    margin-bottom: 10px;
+}
+
+/* Tagline Styling */
+.tagline {
+    font-size: 1.2rem;
+    color: #005f73;  /* Softer green-blue color to match the logo */
+    margin-top: 10px;
+    margin-bottom: 20px;  /* Add space between tagline and logo */
+    font-style: italic;
+}
+
+/* Logo Styling */
+.landing-page img {
+    margin-top: 10px;
+    margin-bottom: 30px;  /* Add space between logo and buttons */
+    width: 200px;
+    height: auto;
+}
+
