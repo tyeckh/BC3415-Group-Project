@@ -196,3 +196,34 @@ body {
     height: auto;
 }
 
+/* Center the historical expenses table and title */
+#history {
+    display: flex;
+    flex-direction: column; /* Stack title and table vertically */
+    justify-content: center;
+    align-items: center; /* Center-align both the title and table */
+    margin-top: 20px;
+}
+
+#history h3 {
+    text-align: center; /* Center-align the title */
+    font-size: 1.5rem;
+    margin-bottom: 15px; /* Add some space between the title and table */
+}
+
+#history table {
+    width: 100%;
+    max-width: 600px; /* Control the max width of the table */
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#history th, #history td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+#history th {
+    background-color: #f2f2f2;
+}
