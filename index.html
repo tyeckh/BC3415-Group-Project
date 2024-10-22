@@ -1,119 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BC3415 App</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Landing Page -->
     <div class="landing-page">
-        <h1>WealthWise</h1>
+      <h1>WealthWise</h1>
 
-        <!-- Logo under the title -->
-        <p class="tagline">Your path to smarter savings and better planning</p>
-        <img src="wealthwise-logo.png" alt="WealthWise Logo" style="width:400px; height:auto;">
+      <!-- Logo under the title -->
+      <p class="tagline">Your path to smarter savings and better planning</p>
+      <img
+        src="wealthwise-logo.png"
+        alt="WealthWise Logo"
+        style="width: 400px; height: auto"
+      />
 
-
-        <div class="button-container">
-            <button onclick="scrollToSection('record-section')">Enter Your Expenses</button>
-            <button onclick="scrollToSection('saving-section')">Savings Recommendations</button>
-            <button onclick="scrollToSection('planning-section')">Financial Strategy</button>
-        </div>
+      <div class="button-container">
+        <button onclick="scrollToSection('record-section')">
+          Enter Your Expenses
+        </button>
+        <button onclick="scrollToSection('saving-section')">
+          Savings Recommendations
+        </button>
+        <button onclick="scrollToSection('planning-section')">
+          Financial Strategy
+        </button>
+      </div>
     </div>
 
     <!-- Section 1: Record Expense or Deposits -->
     <section id="record-section" class="section">
-        <h2>Record Expense or Deposits</h2>
-        <form id="expense-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" required>
+      <h2>Record Expense or Deposits</h2>
+      <form id="expense-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required />
 
-            <label for="type">Inflow/Outflow:</label>
-            <select id="type" required>
-                <option value="Credit">Inflow</option>
-                <option value="Debit">Outflow</option>
-            </select>
+        <label for="type">Inflow/Outflow:</label>
+        <select id="type" required>
+          <option value="Credit">Inflow</option>
+          <option value="Debit">Outflow</option>
+        </select>
 
-            <div id="category-field" style="display: none;">
-                <label for="category">Category:</label>
-                <select id="category">
-                    <option value="Food">Food</option>
-                    <option value="Transport">Transport</option>
-                    <option value="Rent">Rent</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" required>
-
-            <button type="submit">Submit</button>
-        </form>
-
-        <!-- Historical Expenses Table -->
-        <div id="history">
-            <h3>Historical Expenses</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Category</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody id="history-table-body">
-                    <!-- Dynamic Content -->
-                </tbody>
-            </table>
+        <div id="category-field" style="display: none">
+          <label for="category">Category:</label>
+          <select id="category">
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Rent">Rent</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" required />
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <!-- Historical Expenses Table -->
+      <div id="history">
+        <h3>Historical Expenses</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body">
+            <!-- Dynamic Content -->
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <!-- Section 2: Saving Strategy -->
     <section id="saving-section" class="section">
-        <h2>Saving Strategy</h2>
-    
-        <canvas id="spendingChart" width="400" height="400"></canvas>
-    
-        <button id="generate-savings">Generate Savings Strategy</button>
-        <div id="savings-result"></div>
+      <h2>Saving Strategy</h2>
+
+      <canvas id="spendingChart" width="400" height="400"></canvas>
+
+      <button id="generate-savings">Generate Savings Strategy</button>
+      <div id="savings-result"></div>
     </section>
 
     <!-- Section 3: Financial Planning -->
-
     <section id="planning-section" class="section">
-        <h2>Financial Planning</h2>
-    
-        <!-- Goal Textbox -->
-        <label for="goal">Your Financial Goal:</label>
-        <textarea id="goal" rows="4" required></textarea>
-    
-        <!-- Time Horizon Slider -->
-        <label for="time-horizon">Time Horizon (Years):</label>
-        <input type="range" id="time-horizon" min="1" max="30" value="16" oninput="document.getElementById('time-value').innerText = this.value">
-        <span id="time-value">16</span> years
-    
-        <!-- Risk Appetite Slider -->
-        <label for="risk-appetite">Risk Appetite:</label>
-        <input type="range" id="risk-appetite" min="0" max="100" value="82" oninput="document.getElementById('risk-value').innerText = this.value">
-        <span id="risk-value">82</span>% Risk
-    
-        <button id="generate-plan">Generate Plan</button>
-    
-        <div id="planning-result"></div>
+      <h2>Financial Planning</h2>
+
+      <!-- Goal Textbox -->
+      <label for="goal">Your Financial Goal:</label>
+      <textarea id="goal" rows="4" required></textarea>
+
+      <!-- Time Horizon Slider -->
+      <label for="time-horizon">Time Horizon (Years):</label>
+      <input
+        type="range"
+        id="time-horizon"
+        min="1"
+        max="30"
+        value="16"
+        oninput="document.getElementById('time-value').innerText = this.value"
+      />
+      <span id="time-value">16</span> years
+
+      <!-- Risk Appetite Slider -->
+      <label for="risk-appetite">Risk Appetite:</label>
+      <input
+        type="range"
+        id="risk-appetite"
+        min="0"
+        max="100"
+        value="82"
+        oninput="document.getElementById('risk-value').innerText = this.value"
+      />
+      <span id="risk-value">82</span>% Risk
+
+      <button id="generate-plan">Generate Plan</button>
+
+      <div id="planning-result"></div>
     </section>
-    
-    <script src="script.js"></script>
     <script type="importmap">
-        {
-          "imports": {
-            "@google/generative-ai": "https://esm.run/@google/generative-ai"
-          }
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
         }
-      </script>
-</body>
+      }
+    </script>
+    <script type="module" src="script.js"></script>
+  </body>
 </html>
