@@ -1,9 +1,10 @@
-import { Chart } from "https://cdn.jsdelivr.net/npm/chart.js";
+console.log("script.js loaded successfully");
+//import { Chart } from "https://cdn.jsdelivr.net/npm/chart.js";
 //import { GoogleGenerativeAI } from "@google/generative-ai";
 const API_KEY = "AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM";
 
 // Smooth scroll to section
-function scrollToSection(sectionId) {
+window.scrollToSection = function scrollToSection(sectionId) {
   const section = document.getElementById(sectionId)
   console.log("Scrolling to section:", sectionId); // Add this line to debug
   if (section) {
