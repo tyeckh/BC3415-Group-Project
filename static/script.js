@@ -39,7 +39,7 @@ document
 
     // Update Table and Pie Chart
     addExpenseToTable(expense);
-    renderPieChart();
+    renderPieChart(); // Re-render the pie chart with the updated data
 
     // Reset Form
     this.reset();
@@ -274,3 +274,20 @@ document
         `;
     }
   });
+
+// Set "Debit" as the default option on load
+window.onload = function () {
+  document.getElementById("type").value = "Debit"; // Set Debit as default
+  document.getElementById("category-field").style.display = "block"; // Show category field by default
+
+  let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+  expenses.forEach((expense) => addExpenseToTable(expense));
+  renderPieChart();
+};
+
+// Toggle Category Field based on Credit/Debit selection
+document.getElementById("type").addEventListener("change", function () {
+  const categoryField = document.getElementById("category-field");
+  categoryField.style.display = this.value === "Debit" ? "block" : "none";
+});
+
