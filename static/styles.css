@@ -1,0 +1,229 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Full-screen section style */
+.section {
+    min-height: 100vh; /* Each section takes full screen height */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+/* Landing Page Styling */
+.landing-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+
+.landing-page h1 {
+    font-size: 3rem;
+    color: #004080;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Standardized Blue Round Buttons */
+button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #0066cc;
+    border: none;
+    border-radius: 30px; /* Round shape */
+    cursor: pointer;
+    width: 250px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Full-screen section styles */
+.section h2 {
+    font-size: 2.5rem;
+    color: #004080;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Center the form and its inputs */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* Centering the form items */
+}
+
+form input, form select, form textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%; /* Make the input fields wider */
+}
+
+form button {
+    padding: 15px 30px;
+    background-color: #004080;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+/* Align Pie Chart and Button */
+#spendingChart {
+    margin: 0 auto; /* Center the chart */
+    display: block;
+}
+
+#generate-savings {
+    display: block;
+    margin: 20px auto; /* Center the button */
+}
+
+/* Financial Planning Sliders */
+#time-horizon, #risk-appetite {
+    width: 100%; /* Full width sliders */
+    margin: 10px 0;
+}
+
+/* Center and space out elements in the Financial Planning section */
+#planning-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 25px; /* Adds space between elements */
+}
+
+/* Goal Textbox */
+#goal {
+    width: 100%;
+    max-width: 400px; /* Limits the maximum width of the textbox */
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+/* Sliders */
+#time-horizon, #risk-appetite {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 0 10px 0; /* Adds space below each slider */
+}
+
+/* Labels for sliders */
+#planning-section label {
+    font-size: 1.2rem;
+    color: #004080;
+    margin-top: 15px;
+}
+
+/* Text for slider values */
+#planning-section span {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Centered Generate Plan Button */
+#generate-plan {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #0066cc;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#generate-plan:hover {
+    background-color: #005bb5;
+}
+
+/* Body Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f4f7f9;
+    text-align: center;
+}
+
+/* Title Styling */
+.landing-page h1 {
+    font-size: 3rem;
+    color: #003366;  /* Dark blue to match logo */
+    margin-bottom: 10px;
+}
+
+/* Tagline Styling */
+.tagline {
+    font-size: 1.2rem;
+    color: #005f73;  /* Softer green-blue color to match the logo */
+    margin-top: 10px;
+    margin-bottom: 20px;  /* Add space between tagline and logo */
+    font-style: italic;
+}
+
+/* Logo Styling */
+.landing-page img {
+    margin-top: 10px;
+    margin-bottom: 30px;  /* Add space between logo and buttons */
+    width: 200px;
+    height: auto;
+}
+
+/* Center the historical expenses table and title */
+#history {
+    display: flex;
+    flex-direction: column; /* Stack title and table vertically */
+    justify-content: center;
+    align-items: center; /* Center-align both the title and table */
+    margin-top: 20px;
+}
+
+#history h3 {
+    text-align: center; /* Center-align the title */
+    font-size: 1.5rem;
+    margin-bottom: 15px; /* Add some space between the title and table */
+}
+
+#history table {
+    width: 100%;
+    max-width: 600px; /* Control the max width of the table */
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#history th, #history td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+#history th {
+    background-color: #f2f2f2;
+}
