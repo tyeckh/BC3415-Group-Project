@@ -98,15 +98,16 @@
     </section>
 
     <!-- Section 3: Financial Planning -->
+    <!--
     <section id="planning-section" class="section">
       <h2>Financial Planning</h2>
 
       <form action="/generate_financial_plan#planning-section" method="POST">
-        <!-- Goal Textbox -->
+        <!- - Goal Textbox - ->
         <label for="goal">Your Financial Goal:</label>
         <textarea id="goal" name="goal" rows="4" required></textarea>
       
-        <!-- Time Horizon Slider -->
+        <!- - Time Horizon Slider - ->
         <label for="time_horizon">Time Horizon (Years):</label>
         <input
           type="range"
@@ -119,7 +120,7 @@
         />
         <span id="time_value">5</span> years
       
-        <!-- Risk Appetite Slider -->
+        <!- - Risk Appetite Slider - ->
         <label for="risk_appetite">Risk Appetite:</label>
         <input
           type="range"
@@ -134,13 +135,231 @@
       
         <button type="submit">Generate Plan</button>
       </form>
-      
-      <!-- Div to display the generated financial plan -->
       <div id="planning_result">
         {% if financial_plan %}
           <p>{{ financial_plan | safe}}</p>
         {% endif %}
       </div>
     </section>
+    -->
+    <section id="planning-section" class="section">
+      <h2>Financial Planning</h2>
+    
+      <div class="carousel-wrapper">
+        <div class="carousel-container">
+          <!-- Slide 1: Input Form -->
+          <div class="carousel-slide" id="form-slide">
+            <form id="financial-plan-form">
+              <label for="goal">Your Financial Goal:</label>
+              <textarea id="goal" name="goal" rows="4" required></textarea>
+    
+              <label for="time_horizon">Time Horizon (Years):</label>
+              <input
+                type="range"
+                id="time_horizon"
+                name="time_horizon"
+                min="1"
+                max="30"
+                value="5"
+                oninput="document.getElementById('time_value').innerText = this.value"
+              />
+              <span id="time_value">5</span> years
+    
+              <label for="risk_appetite">Risk Appetite:</label>
+              <input
+                type="range"
+                id="risk_appetite"
+                name="risk_appetite"
+                min="0"
+                max="100"
+                value="50"
+                oninput="document.getElementById('risk_value').innerText = this.value"
+              />
+              <span id="risk_value">50</span>% Risk
+    
+              <button type="submit">Generate Plan</button>
+            </form>
+          </div>
+    
+          <!-- Slide 2: Display Financial Plan -->
+          <div class="carousel-slide" id="result-slide">
+            <div id="planning_result">
+              <p>Your financial plan will appear here once generated.</p>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Navigation Arrows -->
+        <button class="carousel-arrow left-arrow" onclick="moveSlide(-1)">
+          &#10094;
+        </button>
+        <button class="carousel-arrow right-arrow" onclick="moveSlide(1)">
+          &#10095;
+        </button>
+    
+        <!-- Page Indicator Dots -->
+        <div class="carousel-dots">
+          <span class="dot" onclick="showSlide(0)"></span>
+          <span class="dot" onclick="showSlide(1)"></span>
+        </div>
+      </div>
+    </section>
+    
+    <style>
+      .carousel-wrapper {
+        position: relative;
+        overflow: hidden;
+        max-width: 100%; /* Full width on smaller screens */
+        margin: auto;
+        padding: 0 10px;
+      }
+    
+      .carousel-container {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+    
+      .carousel-slide {
+        min-width: 100%;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        padding: 10px;
+        text-align: left;
+        overflow-wrap: break-word;
+        max-width: 600px; /* Restrict slide width for better fit */
+        margin: auto;
+      }
+    
+      /* Responsive font size */
+      .carousel-slide p, .carousel-slide span {
+        font-size: 1em;
+      }
+    
+      /* Adjust font size for smaller screens */
+      @media (max-width: 600px) {
+        .carousel-slide p, .carousel-slide span {
+          font-size: 0.9em;
+        }
+      }
+    
+      /* Arrow Styling */
+      .carousel-arrow {
+        position: absolute;
+        top: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #333;
+        transform: translateY(-50%);
+        z-index: 10;
+      }
+    
+      .left-arrow {
+        left: 10px;
+      }
+    
+      .right-arrow {
+        right: 10px;
+      }
+    
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+    
+      .dot {
+        height: 10px;
+        width: 10px;
+        margin: 0 4px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+      }
+    
+      .dot.active {
+        background-color: #333;
+      }
+    </style>
+    
+    <script>
+      let currentSlide = 0;
+    
+      // Touch event variables
+      let startX = 0;
+      let endX = 0;
+    
+      // Add touch event listeners to detect swipe
+      const carouselContainer = document.querySelector('.carousel-container');
+      carouselContainer.addEventListener('touchstart', handleTouchStart, false);
+      carouselContainer.addEventListener('touchend', handleTouchEnd, false);
+    
+      function handleTouchStart(event) {
+        startX = event.touches[0].clientX;
+      }
+    
+      function handleTouchEnd(event) {
+        endX = event.changedTouches[0].clientX;
+        handleSwipe();
+      }
+    
+      function handleSwipe() {
+        const swipeThreshold = 50; // Minimum distance for a swipe to be considered
+    
+        if (startX - endX > swipeThreshold) {
+          // Swipe left
+          moveSlide(1);
+        } else if (endX - startX > swipeThreshold) {
+          // Swipe right
+          moveSlide(-1);
+        }
+      }
+    
+      function moveSlide(direction) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
+        showSlide(currentSlide);
+      }
+    
+      function showSlide(index) {
+        currentSlide = index;
+        const carousel = document.querySelector('.carousel-container');
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+        updateDots();
+      }
+    
+      function updateDots() {
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentSlide].classList.add('active');
+      }
+    
+      // AJAX form submission
+      document.getElementById('financial-plan-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        const formData = new FormData(this);
+    
+        // AJAX request using fetch API
+        fetch('/generate_financial_plan', {
+          method: 'POST',
+          body: formData,
+        })
+          .then(response => response.json()) // Parse the response as JSON
+          .then(data => {
+            // Update the result slide with the financial plan text
+            document.getElementById('planning_result').innerHTML = `<p>${data.financial_plan}</p>`;
+            // Move to the result slide
+            showSlide(1);
+          })
+          .catch(error => console.error('Error:', error));
+      });
+    
+      document.addEventListener('DOMContentLoaded', () => {
+        showSlide(0); // Show the first slide on load
+      });
+    </script>
   </body>
 </html>

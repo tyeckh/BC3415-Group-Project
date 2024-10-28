@@ -22,7 +22,7 @@ def generate_financial_plan():
         model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
         response = model.generate_content(prompt).text
         markdown_response = markdown.markdown(response)
-        return render_template('index.html', financial_plan=markdown_response)
+        return jsonify({'financial_plan': markdown_response})
     return render_template('index.html')
 
 if __name__ == '__main__':
