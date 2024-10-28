@@ -1,6 +1,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 const API_KEY = "AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM";
 
+// Define a global variable for the chart instance
+let spendingChart;
+
 // Smooth scroll to section
 function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: "smooth" });
@@ -100,7 +103,12 @@ function renderPieChart() {
   const spendingData = calculateSpendingData();
 
   const ctx = document.getElementById("spendingChart").getContext("2d");
-  new Chart(ctx, {
+  // Destroy previous chart if it exists to prevent layering
+  if (spendingChart) {
+    spendingChart.destroy();
+  }
+
+  spendingChart = new Chart(ctx, {
     type: "pie",
     data: {
       labels: spendingData.labels,
