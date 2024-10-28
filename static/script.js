@@ -1,7 +1,4 @@
 console.log("script.js loaded successfully");
-//import { Chart } from "https://cdn.jsdelivr.net/npm/chart.js";
-//import { GoogleGenerativeAI } from "@google/generative-ai";
-const API_KEY = "AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM";
 
 // Smooth scroll to section
 window.scrollToSection = function scrollToSection(sectionId) {
@@ -186,94 +183,14 @@ if (generateSavingsButton) {
   });
 }
 
-// Handle Financial Planning Form Submission
-document
-  .getElementById("planning-section")
-  .addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const goals = document.getElementById("goal").value;
-    const timeline = document.getElementById("timeline").value;
-
-    try {
-      // Example: Sending data to Gemini API (Replace with actual API details)
-      const response = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ goals, timeline }),
-        }
-      );
-
-      const data = await response.json();
-
-      // Display Financial Plan
-      document.getElementById("planning-result").innerHTML = `
-            <h3>Your Financial Plan</h3>
-            <p><strong>Risk Profile:</strong> ${
-              data.riskProfile || "Not available"
-            }</p>
-            <p><strong>Investment Strategy:</strong> ${
-              data.investmentStrategy || "Not available"
-            }</p>
-        `;
-    } catch (error) {
-      console.error("Error fetching from the API:", error);
-      document.getElementById("planning-result").innerHTML = `
-            <p>Error generating financial plan. Please try again later.</p>
-        `;
-    }
-  });
-
 // Sliders for Time Horizon and Risk Appetite
-document.getElementById("time-horizon").addEventListener("input", function () {
-  document.getElementById("time-value").textContent = this.value;
+document.getElementById("time_horizon").addEventListener("input", function () {
+  document.getElementById("time_value").textContent = this.value;
 });
 
-document.getElementById("risk-appetite").addEventListener("input", function () {
-  document.getElementById("risk-value").textContent = this.value;
+document.getElementById("risk_appetite").addEventListener("input", function () {
+  document.getElementById("risk_value").textContent = this.value;
 });
-
-// Handle Financial Plan Generation (AI Simulation)
-document
-  .getElementById("generate-plan")
-  .addEventListener("click", async function () {
-    const goal = document.getElementById("goal").value;
-    const timeHorizon = document.getElementById("time-horizon").value;
-    const riskAppetite = document.getElementById("risk-appetite").value;
-
-    try {
-      // Example API call to generative AI (replace with actual call)
-      const response = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ goal, timeHorizon, riskAppetite }),
-        }
-      );
-
-      const data = await response.json();
-      console.log(data); // Log the response to debug
-
-      // Display the AI-generated financial plan
-      document.getElementById("planning-result").innerHTML = `
-            <h3>Your Plan</h3>
-            <p><strong>Goal:</strong> ${goal}</p>
-            <p><strong>Time Horizon:</strong> ${timeHorizon} years</p>
-            <p><strong>Risk Appetite:</strong> ${riskAppetite}%</p>
-            <p><strong>AI's Advice:</strong> ${
-              data.plan || "No advice available"
-            }</p>
-        `;
-    } catch (error) {
-      console.error("Error fetching from the API:", error);
-      document.getElementById("planning-result").innerHTML = `
-            <p>Error generating the financial plan. Please try again later.</p>
-        `;
-    }
-  });
 
 // Set "Debit" as the default option on load
 window.onload = function () {

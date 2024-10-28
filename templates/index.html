@@ -9,16 +9,7 @@
       type="text/css"
       href="{{url_for('static',filename='styles.css')}}"
     />
-    <!--
-    <script type="importmap">
-      {
-        "imports": {
-          "@google/generative-ai": "https://esm.run/@google/generative-ai"
-        }
-      }
-    -->
     <script type="module" src="{{ url_for('static', filename='script.js') }}"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </script>
   </head>
   <body>
@@ -110,37 +101,46 @@
     <section id="planning-section" class="section">
       <h2>Financial Planning</h2>
 
-      <!-- Goal Textbox -->
-      <label for="goal">Your Financial Goal:</label>
-      <textarea id="goal" rows="4" required></textarea>
-
-      <!-- Time Horizon Slider -->
-      <label for="time-horizon">Time Horizon (Years):</label>
-      <input
-        type="range"
-        id="time-horizon"
-        min="1"
-        max="30"
-        value="16"
-        oninput="document.getElementById('time-value').innerText = this.value"
-      />
-      <span id="time-value">16</span> years
-
-      <!-- Risk Appetite Slider -->
-      <label for="risk-appetite">Risk Appetite:</label>
-      <input
-        type="range"
-        id="risk-appetite"
-        min="0"
-        max="100"
-        value="82"
-        oninput="document.getElementById('risk-value').innerText = this.value"
-      />
-      <span id="risk-value">82</span>% Risk
-
-      <button id="generate-plan">Generate Plan</button>
-
-      <div id="planning-result"></div>
+      <form action="/generate_financial_plan" method="POST">
+        <!-- Goal Textbox -->
+        <label for="goal">Your Financial Goal:</label>
+        <textarea id="goal" name="goal" rows="4" required></textarea>
+      
+        <!-- Time Horizon Slider -->
+        <label for="time_horizon">Time Horizon (Years):</label>
+        <input
+          type="range"
+          id="time_horizon"
+          name="time_horizon"
+          min="1"
+          max="30"
+          value="16"
+          oninput="document.getElementById('time_value').innerText = this.value"
+        />
+        <span id="time_value">16</span> years
+      
+        <!-- Risk Appetite Slider -->
+        <label for="risk_appetite">Risk Appetite:</label>
+        <input
+          type="range"
+          id="risk_appetite"
+          name="risk_appetite"
+          min="0"
+          max="100"
+          value="82"
+          oninput="document.getElementById('risk_value').innerText = this.value"
+        />
+        <span id="risk_value">82</span>% Risk
+      
+        <button type="submit">Generate Plan</button>
+      </form>
+      
+      <!-- Div to display the generated financial plan -->
+      <div id="planning_result">
+        {% if financial_plan %}
+          <p>{{ financial_plan }}</p>
+        {% endif %}
+      </div>
     </section>
   </body>
 </html>

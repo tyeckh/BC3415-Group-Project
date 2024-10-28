@@ -195,7 +195,7 @@ document
     e.preventDefault();
 
     const goals = document.getElementById("goal").value;
-    const timeline = document.getElementById("timeline").value;
+    //const timeline = document.getElementById("time-horizon").value;
 
     try {
       // Example: Sending data to Gemini API (Replace with actual API details)
