@@ -1,7 +1,8 @@
 import os
-from flask import Flask, render_template, request, jsonify
 import json
 import google.generativeai as genai
+from flask import Flask, render_template, request, jsonify
+import markdown
 
 app = Flask(__name__)
 API_KEY = "AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM"
@@ -20,7 +21,8 @@ def generate_financial_plan():
         prompt = f"Create a personalized financial plan for a goal: '{user_goal}' with a time horizon of {time_horizon} years and a risk appetite of {risk_appetite}%. Keep it concise and easy to understand."
         model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
         response = model.generate_content(prompt).text
-        return render_template('index.html', financial_plan=response)
+        markdown_response = markdown.markdown(response)
+        return render_template('index.html', financial_plan=markdown_response)
     return render_template('index.html')
 
 if __name__ == '__main__':

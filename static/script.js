@@ -133,56 +133,6 @@ function renderPieChart() {
   });
 }
 
-// Handle Savings Strategy Generation
-const generateSavingsButton = document.getElementById("generate-savings");
-if (generateSavingsButton) {
-  generateSavingsButton.addEventListener("click", async function () {
-    const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
-    const debits = expenses.filter((exp) => exp.type === "Debit");
-
-    // Calculate Spending Habits
-    const categoryTotals = {};
-    let totalSpending = 0;
-    debits.forEach((exp) => {
-      categoryTotals[exp.category] =
-        (categoryTotals[exp.category] || 0) + exp.amount;
-      totalSpending += exp.amount;
-    });
-
-    const spendingHabits = Object.keys(categoryTotals).map((category) => ({
-      category,
-      percentage: ((categoryTotals[category] / totalSpending) * 100).toFixed(2),
-    }));
-
-    const genAI = new GoogleGenerativeAI(
-      "AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM"
-    );
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
-    const prompt =
-      "These are my spending habits, generate a comprehensive savings plan for me. Be concise." +
-      spendingHabits;
-    try {
-      // Example: Sending data to Gemini API (Replace with actual API details)
-      const result = await model.generateContent(prompt);
-      console.log(result.response.text());
-
-      // Display Savings Strategy
-      document.getElementById("savings-result").innerHTML = `
-            <h3>Your Savings Strategy</h3>
-            <p>${
-              result.response.text() ||
-              "No strategy generated. Please check the API response."
-            }</p>
-        `;
-    } catch (error) {
-      console.error("Error fetching from the API:", error);
-      document.getElementById("savings-result").innerHTML = `
-            <p>Error generating savings strategy. Please try again later.</p>
-        `;
-    }
-  });
-}
-
 // Sliders for Time Horizon and Risk Appetite
 document.getElementById("time_horizon").addEventListener("input", function () {
   document.getElementById("time_value").textContent = this.value;

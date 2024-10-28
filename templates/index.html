@@ -101,7 +101,7 @@
     <section id="planning-section" class="section">
       <h2>Financial Planning</h2>
 
-      <form action="/generate_financial_plan" method="POST">
+      <form action="/generate_financial_plan#planning-section" method="POST">
         <!-- Goal Textbox -->
         <label for="goal">Your Financial Goal:</label>
         <textarea id="goal" name="goal" rows="4" required></textarea>
@@ -114,10 +114,10 @@
           name="time_horizon"
           min="1"
           max="30"
-          value="16"
+          value="5"
           oninput="document.getElementById('time_value').innerText = this.value"
         />
-        <span id="time_value">16</span> years
+        <span id="time_value">5</span> years
       
         <!-- Risk Appetite Slider -->
         <label for="risk_appetite">Risk Appetite:</label>
@@ -127,10 +127,10 @@
           name="risk_appetite"
           min="0"
           max="100"
-          value="82"
+          value="50"
           oninput="document.getElementById('risk_value').innerText = this.value"
         />
-        <span id="risk_value">82</span>% Risk
+        <span id="risk_value">50</span>% Risk
       
         <button type="submit">Generate Plan</button>
       </form>
@@ -138,7 +138,7 @@
       <!-- Div to display the generated financial plan -->
       <div id="planning_result">
         {% if financial_plan %}
-          <p>{{ financial_plan }}</p>
+          <p>{{ financial_plan | safe}}</p>
         {% endif %}
       </div>
     </section>
