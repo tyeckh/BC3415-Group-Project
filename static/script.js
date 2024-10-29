@@ -1,13 +1,13 @@
-console.log("script.js loaded successfully");
+//import Chart from "https://cdn.jsdelivr.net/npm/chart.js";
 
 // Smooth scroll to section
 window.scrollToSection = function scrollToSection(sectionId) {
-  const section = document.getElementById(sectionId)
+  const section = document.getElementById(sectionId);
   console.log("Scrolling to section:", sectionId); // Add this line to debug
   if (section) {
     section.scrollIntoView({ behavior: "smooth" });
   }
-}
+};
 
 // Toggle Category Field based on Credit/Debit selection
 document.getElementById("type").addEventListener("change", function () {
@@ -158,3 +158,4 @@ document.getElementById("type").addEventListener("change", function () {
   categoryField.style.display = this.value === "Debit" ? "block" : "none";
 });
 
+console.log("script.js loaded successfully");

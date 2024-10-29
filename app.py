@@ -18,11 +18,17 @@ def generate_financial_plan():
         user_goal = str(request.form['goal'])
         time_horizon = str(request.form['time_horizon'])
         risk_appetite = str(request.form['risk_appetite'])
-        prompt = f"Create a personalized financial plan for a goal: '{user_goal}' with a time horizon of {time_horizon} years and a risk appetite of {risk_appetite}%. Keep it concise and easy to understand."
+        prompt = f"Create a personalized financial plan for a goal: '{user_goal}' with a time horizon of {time_horizon} years and a risk appetite of {risk_appetite}% which ranges from 0% to 100%. Keep it concise but precise and easy to understand. Minimise bullet points."
         model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
         response = model.generate_content(prompt).text
         markdown_response = markdown.markdown(response)
         return jsonify({'financial_plan': markdown_response})
+    return render_template('index.html')
+
+@app.route('/generate_savings_plan', methods=['POST'])
+def generate_savings_plan():
+    if request.method == 'POST':
+        return None
     return render_template('index.html')
 
 if __name__ == '__main__':
