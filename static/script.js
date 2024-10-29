@@ -1,6 +1,3 @@
-//declare global variable
-let spendingChart;
-
 console.log("script.js loaded successfully");
 
 // Smooth scroll to section
@@ -106,11 +103,7 @@ function renderPieChart() {
   const spendingData = calculateSpendingData();
 
   const ctx = document.getElementById("spendingChart").getContext("2d");
-  // Destroy the existing chart instance if it exists
-  if (spendingChart) {
-    spendingChart.destroy();
-  }
-  spendingChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: "pie",
     data: {
       labels: spendingData.labels,
