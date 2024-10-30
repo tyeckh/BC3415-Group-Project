@@ -9,9 +9,11 @@
       type="text/css"
       href="{{url_for('static',filename='styles.css')}}"
     />
-    <script type="module" src="{{ url_for('static', filename='script.js') }}"></script>
+    <script
+      type="module"
+      src="{{ url_for('static', filename='script.js') }}"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    </script>
   </head>
   <body>
     <!-- Landing Page -->
@@ -95,7 +97,34 @@
       <canvas id="spendingChart" width="400" height="400"></canvas>
 
       <button id="generate-savings">Generate Savings Strategy</button>
-      <div id="savings-result"></div>
+      <div id="savings-result">
+        {% if savings_strategy %}
+        <p>{{ savings_strategy | safe}}</p>
+        {% endif %}
+      </div>
+      <script>
+        // AJAX form submission
+        document
+          .getElementById("generate-savings")
+          .addEventListener("click", function () {
+            event.preventDefault(); // Prevent the default form submission
+            const formData = new FormData(this);
+
+            // AJAX request using fetch API
+            fetch("/generate_savings_strategy", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => response.json()) // Parse the response as JSON
+              .then((data) => {
+                // Update the result slide with the financial plan text
+                document.getElementById(
+                  "savings-result"
+                ).innerHTML = `<p>${data.savings_strategy}</p>`;
+              })
+              .catch((error) => console.error("Error:", error));
+          });
+      </script>
     </section>
 
     <!-- Section 3: Financial Planning -->
@@ -145,7 +174,7 @@
     -->
     <section id="planning-section" class="section">
       <h2>Financial Planning</h2>
-    
+
       <div class="carousel-wrapper">
         <div class="carousel-container">
           <!-- Slide 1: Input Form -->
@@ -153,7 +182,6 @@
             <form id="financial-plan-form">
               <label for="goal">Your Financial Goal:</label>
               <textarea id="goal" name="goal" rows="4" required></textarea>
-    
               <label for="time_horizon">Time Horizon (Years):</label>
               <input
                 type="range"
@@ -165,7 +193,7 @@
                 oninput="document.getElementById('time_value').innerText = this.value"
               />
               <span id="time_value">5</span> years
-    
+
               <label for="risk_appetite">Risk Appetite:</label>
               <input
                 type="range"
@@ -177,19 +205,23 @@
                 oninput="document.getElementById('risk_value').innerText = this.value"
               />
               <span id="risk_value">50</span>% Risk
-    
               <button type="submit">Generate Plan</button>
             </form>
           </div>
-    
-          <!-- Slide 2: Display Financial Plan -->
+
+          <!-- Slide 2: Display Financial Plan with Loading Spinner -->
           <div class="carousel-slide" id="result-slide">
             <div id="planning_result">
+              <div
+                class="spinner"
+                id="loading-spinner"
+                style="display: none"
+              ></div>
               <p>Your financial plan will appear here once generated.</p>
             </div>
           </div>
         </div>
-    
+
         <!-- Navigation Arrows -->
         <button class="carousel-arrow left-arrow" onclick="moveSlide(-1)">
           &#10094;
@@ -197,7 +229,7 @@
         <button class="carousel-arrow right-arrow" onclick="moveSlide(1)">
           &#10095;
         </button>
-    
+
         <!-- Page Indicator Dots -->
         <div class="carousel-dots">
           <span class="dot" onclick="showSlide(0)"></span>
@@ -205,7 +237,7 @@
         </div>
       </div>
     </section>
-    
+
     <style>
       .carousel-wrapper {
         position: relative;
@@ -214,12 +246,12 @@
         margin: auto;
         padding: 0 10px;
       }
-    
+
       .carousel-container {
         display: flex;
         transition: transform 0.5s ease-in-out;
       }
-    
+
       .carousel-slide {
         min-width: 100%;
         flex-shrink: 0;
@@ -230,19 +262,21 @@
         max-width: 600px; /* Restrict slide width for better fit */
         margin: auto;
       }
-    
+
       /* Responsive font size */
-      .carousel-slide p, .carousel-slide span {
+      .carousel-slide p,
+      .carousel-slide span {
         font-size: 1em;
       }
-    
+
       /* Adjust font size for smaller screens */
       @media (max-width: 600px) {
-        .carousel-slide p, .carousel-slide span {
+        .carousel-slide p,
+        .carousel-slide span {
           font-size: 0.9em;
         }
       }
-    
+
       /* Arrow Styling */
       .carousel-arrow {
         position: absolute;
@@ -255,21 +289,21 @@
         transform: translateY(-50%);
         z-index: 10;
       }
-    
+
       .left-arrow {
         left: 10px;
       }
-    
+
       .right-arrow {
         right: 10px;
       }
-    
+
       .carousel-dots {
         display: flex;
         justify-content: center;
         margin-top: 10px;
       }
-    
+
       .dot {
         height: 10px;
         width: 10px;
@@ -279,36 +313,56 @@
         display: inline-block;
         cursor: pointer;
       }
-    
+
       .dot.active {
         background-color: #333;
       }
+
+      /* Spinner styling */
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #333;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     </style>
-    
+
     <script>
       let currentSlide = 0;
-    
+
       // Touch event variables
       let startX = 0;
       let endX = 0;
-    
+
       // Add touch event listeners to detect swipe
-      const carouselContainer = document.querySelector('.carousel-container');
-      carouselContainer.addEventListener('touchstart', handleTouchStart, false);
-      carouselContainer.addEventListener('touchend', handleTouchEnd, false);
-    
+      const carouselContainer = document.querySelector(".carousel-container");
+      carouselContainer.addEventListener("touchstart", handleTouchStart, false);
+      carouselContainer.addEventListener("touchend", handleTouchEnd, false);
+
       function handleTouchStart(event) {
         startX = event.touches[0].clientX;
       }
-    
+
       function handleTouchEnd(event) {
         endX = event.changedTouches[0].clientX;
         handleSwipe();
       }
-    
+
       function handleSwipe() {
         const swipeThreshold = 50; // Minimum distance for a swipe to be considered
-    
+
         if (startX - endX > swipeThreshold) {
           // Swipe left
           moveSlide(1);
@@ -317,48 +371,62 @@
           moveSlide(-1);
         }
       }
-    
+
       function moveSlide(direction) {
-        const slides = document.querySelectorAll('.carousel-slide');
-        currentSlide = (currentSlide + direction + slides.length) % slides.length;
+        const slides = document.querySelectorAll(".carousel-slide");
+        currentSlide =
+          (currentSlide + direction + slides.length) % slides.length;
         showSlide(currentSlide);
       }
-    
+
       function showSlide(index) {
         currentSlide = index;
-        const carousel = document.querySelector('.carousel-container');
+        const carousel = document.querySelector(".carousel-container");
         carousel.style.transform = `translateX(-${index * 100}%)`;
         updateDots();
       }
-    
+
       function updateDots() {
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[currentSlide].classList.add('active');
+        const dots = document.querySelectorAll(".dot");
+        dots.forEach((dot) => dot.classList.remove("active"));
+        dots[currentSlide].classList.add("active");
       }
-    
+
       // AJAX form submission
-      document.getElementById('financial-plan-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-    
-        const formData = new FormData(this);
-    
-        // AJAX request using fetch API
-        fetch('/generate_financial_plan', {
-          method: 'POST',
-          body: formData,
-        })
-          .then(response => response.json()) // Parse the response as JSON
-          .then(data => {
-            // Update the result slide with the financial plan text
-            document.getElementById('planning_result').innerHTML = `<p>${data.financial_plan}</p>`;
-            // Move to the result slide
-            showSlide(1);
+      document
+        .getElementById("financial-plan-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          const formData = new FormData(this);
+
+          // Show the loading spinner and move to the result slide
+          document.getElementById("loading-spinner").style.display = "block";
+          showSlide(1);
+
+          // AJAX request using fetch API
+          fetch("/generate_financial_plan", {
+            method: "POST",
+            body: formData,
           })
-          .catch(error => console.error('Error:', error));
-      });
-    
-      document.addEventListener('DOMContentLoaded', () => {
+            .then((response) => response.json()) // Parse the response as JSON
+            .then((data) => {
+              // Hide the loading spinner
+              document.getElementById("loading-spinner").style.display = "none";
+              // Update the result slide with the financial plan text
+              document.getElementById(
+                "planning_result"
+              ).innerHTML = `<p>${data.financial_plan}</p>`;
+            })
+            .catch((error) => {
+              document.getElementById("loading-spinner").style.display = "none";
+              document.getElementById("planning_result").innerHTML =
+                "<p>Error: Could not generate the financial plan.</p>";
+              console.error("Error:", error);
+            });
+        });
+
+      document.addEventListener("DOMContentLoaded", () => {
         showSlide(0); // Show the first slide on load
       });
     </script>

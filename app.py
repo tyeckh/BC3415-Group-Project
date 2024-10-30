@@ -25,10 +25,19 @@ def generate_financial_plan():
         return jsonify({'financial_plan': markdown_response})
     return render_template('index.html')
 
-@app.route('/generate_savings_plan', methods=['POST'])
+@app.route('/generate_savings_strategy', methods=['POST'])
 def generate_savings_plan():
     if request.method == 'POST':
-        return None
+        spending_habits = str(request.form['spending_habits'])
+        prompt = f"""Create a personalized savings strategy. Keep it concise but precise and easy to understand. Minimise bullet points.
+                These is the current spending habits of the user: {spending_habits}. Include the following: 
+                1. How much to save monthly 2. Where to save 3. How to save. 4. How to track progress. 
+                5. How to adjust the strategy. 6. Long-term lifestyle changes.
+                """
+        model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
+        response = model.generate_content(prompt).text
+        markdown_response = markdown.markdown(response)
+        return jsonify({'financial_plan': markdown_response})
     return render_template('index.html')
 
 if __name__ == '__main__':
