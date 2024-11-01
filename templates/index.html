@@ -44,14 +44,18 @@
       </div>
     </div>
 
-  <!-- Create Your Character Section -->
-  <section id="character-section", class = "section">
-    <h2>Create your character!</h2>
-    <div id="character-result"style="margin-bottom: 20px;"></div>
-    <input type="text" id="character-prompt" placeholder="Describe your character here" />
-    <button id="generate-character">Generate Character</button>
-    <button id="feeling-lucky">I'm feeling lucky!</button>
-  </section>
+    <!-- Create Your Character Section -->
+    <section id="character-section" , class="section">
+      <h2>Create your character!</h2>
+      <div id="character-result" style="margin-bottom: 20px"></div>
+      <input
+        type="text"
+        id="character-prompt"
+        placeholder="Describe your character here"
+      />
+      <button id="generate-character">Generate Character</button>
+      <button id="feeling-lucky">I'm feeling lucky!</button>
+    </section>
 
     <!-- Section 1: Record Expense or Deposits -->
     <section id="record-section" class="section">
@@ -182,6 +186,83 @@
         </div>
       </div>
     </section>
+    <style>
+      .carousel-wrapper {
+        position: relative;
+        overflow: hidden;
+        max-width: 100%; /* Full width on smaller screens */
+        margin: auto;
+        padding: 0 10px;
+      }
+    
+      .carousel-container {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+    
+      .carousel-slide {
+        min-width: 100%;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        padding: 10px;
+        text-align: left;
+        overflow-wrap: break-word;
+        max-width: 600px; /* Restrict slide width for better fit */
+        margin: auto;
+      }
+    
+      /* Responsive font size */
+      .carousel-slide p, .carousel-slide span {
+        font-size: 1em;
+      }
+    
+      /* Adjust font size for smaller screens */
+      @media (max-width: 600px) {
+        .carousel-slide p, .carousel-slide span {
+          font-size: 0.9em;
+        }
+      }
+    
+      /* Arrow Styling */
+      .carousel-arrow {
+        position: absolute;
+        top: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #333;
+        transform: translateY(-50%);
+        z-index: 10;
+      }
+    
+      .left-arrow {
+        left: 10px;
+      }
+    
+      .right-arrow {
+        right: 10px;
+      }
+    
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+    
+      .dot {
+        height: 10px;
+        width: 10px;
+        margin: 0 4px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+      }
+    
+      .dot.active {
+        background-color: #333;
+      }
+    </style>
   </body>
 </html>
-
