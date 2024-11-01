@@ -45,18 +45,17 @@ def generate_financial_plan():
 def generate_savings_strategy():
     if request.method == 'POST':
         try:
-            spending_habits = request.form.get('spending_habits', '').strip()
-
+            spending_habits = str(request.form.get('spending_habits', ''))
             if not spending_habits:
-                return jsonify({'error': 'Spending habits are required to generate a savings strategy.'}), 400
+                return jsonify({'error': 'No spending habits provided'}), 400
 
-            prompt = (
-                f"Create a personalized savings strategy. Keep it concise but precise and easy to understand. "
-                f"Minimize bullet points. These are the current spending habits of the user: {spending_habits}. "
-                "Include the following: 1. How much to save monthly 2. Where to save 3. How to save 4. How to track progress "
-                "5. How to adjust the strategy 6. Long-term lifestyle changes."
-            )
+            prompt = f"""Create a personalized savings strategy. Keep it concise but precise and easy to understand. Minimize bullet points.
+                        These are the current spending habits of the user: {spending_habits}. Include the following:
+                        1. How much to save monthly 2. Where to save 3. How to save. 4. How to track progress.
+                        5. How to adjust the strategy. 6. Long-term lifestyle changes.
+                    """
             
+            model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
             response = model.generate_content(prompt).text
             markdown_response = markdown.markdown(response)
             
@@ -64,7 +63,7 @@ def generate_savings_strategy():
         
         except Exception as e:
             return jsonify({'error': 'Failed to generate savings strategy', 'details': str(e)}), 500
-
+        
 # List of predefined character images
 character_images = [
     "static/assets/char1.png",
@@ -76,17 +75,12 @@ character_images = [
 current_image_index = 0
 
 @app.route('/generate-character', methods=['GET'])
+
 def generate_character():
     global current_image_index
-
-    if character_images:
-        # Get the current image and increment the index
-        chosen_image = character_images[current_image_index]
-        current_image_index = (current_image_index + 1) % len(character_images)  # Loop back to 0 when reaching the end
-
-        return send_file(chosen_image, mimetype='image/png')
-    else:
-        return jsonify({'error': 'No character images available.'}), 404
+    chosen_image = character_images[current_image_index]
+    current_image_index = (current_image_index + 1) % len(character_images)
+    return send_file(chosen_image, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="3415", debug=True)

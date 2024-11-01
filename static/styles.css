@@ -83,7 +83,6 @@ button, #generate-character, #feeling-lucky, #generate-savings {
     max-width: 250px;
     text-align: center;
     transition: background-color 0.3s;
-    margin-top: 10px;
     margin-bottom: 10px;
 }
 
@@ -107,13 +106,14 @@ form {
 }
 
 form input, form select, form textarea, #character-prompt, #goal {
-    padding: 10px;
+    padding: 15px;
     font-size: 1rem;
     border-radius: 5px;
     border: 1px solid #ccc;
     width: 100%;
     max-width: 400px;
     box-sizing: border-box;
+    margin-bottom: 30px;
 }
 
 /* Slider and Labels in Planning Section */

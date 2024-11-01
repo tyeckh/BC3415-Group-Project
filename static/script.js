@@ -137,16 +137,20 @@ function renderPieChart() {
   });
 }
 
-// Handle Generate Savings Strategy form submission
 document.getElementById("generate-savings").addEventListener("click", function (event) {
   event.preventDefault(); // Prevent the default button behavior
 
-  // Get form data from 'expense-form' instead of the button itself
+  // Get form data from 'expense-form'
   const form = document.getElementById("expense-form");
   if (form) {
     const formData = new FormData(form);
 
-    // AJAX request using fetch API
+    // Check that the data is correctly sent
+    if (!formData.has("spending_habits")) {
+      formData.append("spending_habits", JSON.stringify(loadExpensesFromLocalStorage())); // Custom function to load data
+    }
+
+    // Send the form data via fetch
     fetch("/generate_savings_strategy", {
       method: "POST",
       body: formData,
