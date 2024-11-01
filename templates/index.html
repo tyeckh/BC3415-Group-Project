@@ -29,6 +29,9 @@
       />
 
       <div class="button-container">
+        <button onclick="scrollToSection('character-section')">
+          Create Your Character
+        </button>
         <button onclick="scrollToSection('record-section')">
           Enter Your Expenses
         </button>
@@ -40,6 +43,15 @@
         </button>
       </div>
     </div>
+
+  <!-- Create Your Character Section -->
+  <section id="character-section", class = "section">
+    <h2>Create your character!</h2>
+    <div id="character-result"style="margin-bottom: 20px;"></div>
+    <input type="text" id="character-prompt" placeholder="Describe your character here" />
+    <button id="generate-character">Generate Character</button>
+    <button id="feeling-lucky">I'm feeling lucky!</button>
+  </section>
 
     <!-- Section 1: Record Expense or Deposits -->
     <section id="record-section" class="section">
@@ -432,3 +444,4 @@
     </script>
   </body>
 </html>
+

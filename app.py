@@ -1,8 +1,9 @@
 import os
 import json
 import google.generativeai as genai
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import markdown
+
 
 app = Flask(__name__)
 API_KEY = "AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM"
@@ -40,6 +41,25 @@ def generate_savings_plan():
         return jsonify({'financial_plan': markdown_response})
     return render_template('index.html')
 
+# List of predefined character images
+character_images = [
+    "static/assets/char1.png",
+    "static/assets/char2.png",
+    "static/assets/char3.png"
+]
+
+# Index to keep track of the current image
+current_image_index = 0
+
+@app.route('/generate-character', methods=['GET'])
+def generate_character():
+    global current_image_index
+
+    # Get the current image and increment the index
+    chosen_image = character_images[current_image_index]
+    current_image_index = (current_image_index + 1) % len(character_images)  # Loop back to 0 when reaching the end
+
+    return send_file(chosen_image, mimetype='image/png')
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="3415", debug=True)
-
