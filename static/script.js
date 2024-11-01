@@ -163,8 +163,6 @@ document.getElementById("generate-savings").addEventListener("click", function (
     console.error("Form element not found");
   }
 });
-<<<<<<< Updated upstream
-=======
 
 document.getElementById("risk_appetite").addEventListener("input", function () {
   document.getElementById("risk_value").textContent = this.value;
@@ -278,4 +276,3 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 console.log("script.js loaded successfully");
->>>>>>> Stashed changes
