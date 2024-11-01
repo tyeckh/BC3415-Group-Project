@@ -4,10 +4,12 @@ import google.generativeai as genai
 from flask import Flask, render_template, request, jsonify, send_file
 import markdown
 
-
 app = Flask(__name__)
 API_KEY = "AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM"
 genai.configure(api_key=API_KEY)
+
+# Initialize the GenAI model once
+model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
 
 @app.route('/')
 def index():
@@ -16,30 +18,52 @@ def index():
 @app.route('/generate_financial_plan', methods=['POST'])
 def generate_financial_plan():
     if request.method == 'POST':
-        user_goal = str(request.form['goal'])
-        time_horizon = str(request.form['time_horizon'])
-        risk_appetite = str(request.form['risk_appetite'])
-        prompt = f"Create a personalized financial plan for a goal: '{user_goal}' with a time horizon of {time_horizon} years and a risk appetite of {risk_appetite}% which ranges from 0% to 100%. Keep it concise but precise and easy to understand. Minimise bullet points."
-        model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
-        response = model.generate_content(prompt).text
-        markdown_response = markdown.markdown(response)
-        return jsonify({'financial_plan': markdown_response})
-    return render_template('index.html')
+        try:
+            # Ensure required fields are present
+            user_goal = request.form.get('goal')
+            time_horizon = request.form.get('time_horizon')
+            risk_appetite = request.form.get('risk_appetite')
+
+            if not all([user_goal, time_horizon, risk_appetite]):
+                return jsonify({'error': 'Missing required fields in the form.'}), 400
+
+            prompt = (
+                f"Create a personalized financial plan for a goal: '{user_goal}' with a time horizon of {time_horizon} years "
+                f"and a risk appetite of {risk_appetite}%, which ranges from 0% to 100%. "
+                f"Keep it concise but precise and easy to understand. Minimize bullet points."
+            )
+            
+            response = model.generate_content(prompt).text
+            markdown_response = markdown.markdown(response)
+            
+            return jsonify({'financial_plan': markdown_response})
+        
+        except Exception as e:
+            return jsonify({'error': 'Failed to generate financial plan', 'details': str(e)}), 500
 
 @app.route('/generate_savings_strategy', methods=['POST'])
-def generate_savings_plan():
+def generate_savings_strategy():
     if request.method == 'POST':
-        spending_habits = str(request.form['spending_habits'])
-        prompt = f"""Create a personalized savings strategy. Keep it concise but precise and easy to understand. Minimise bullet points.
-                These is the current spending habits of the user: {spending_habits}. Include the following: 
-                1. How much to save monthly 2. Where to save 3. How to save. 4. How to track progress. 
-                5. How to adjust the strategy. 6. Long-term lifestyle changes.
-                """
-        model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
-        response = model.generate_content(prompt).text
-        markdown_response = markdown.markdown(response)
-        return jsonify({'financial_plan': markdown_response})
-    return render_template('index.html')
+        try:
+            spending_habits = request.form.get('spending_habits', '').strip()
+
+            if not spending_habits:
+                return jsonify({'error': 'Spending habits are required to generate a savings strategy.'}), 400
+
+            prompt = (
+                f"Create a personalized savings strategy. Keep it concise but precise and easy to understand. "
+                f"Minimize bullet points. These are the current spending habits of the user: {spending_habits}. "
+                "Include the following: 1. How much to save monthly 2. Where to save 3. How to save 4. How to track progress "
+                "5. How to adjust the strategy 6. Long-term lifestyle changes."
+            )
+            
+            response = model.generate_content(prompt).text
+            markdown_response = markdown.markdown(response)
+            
+            return jsonify({'savings_strategy': markdown_response})
+        
+        except Exception as e:
+            return jsonify({'error': 'Failed to generate savings strategy', 'details': str(e)}), 500
 
 # List of predefined character images
 character_images = [
@@ -55,11 +79,14 @@ current_image_index = 0
 def generate_character():
     global current_image_index
 
-    # Get the current image and increment the index
-    chosen_image = character_images[current_image_index]
-    current_image_index = (current_image_index + 1) % len(character_images)  # Loop back to 0 when reaching the end
+    if character_images:
+        # Get the current image and increment the index
+        chosen_image = character_images[current_image_index]
+        current_image_index = (current_image_index + 1) % len(character_images)  # Loop back to 0 when reaching the end
 
-    return send_file(chosen_image, mimetype='image/png')
+        return send_file(chosen_image, mimetype='image/png')
+    else:
+        return jsonify({'error': 'No character images available.'}), 404
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="3415", debug=True)

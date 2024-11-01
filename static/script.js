@@ -7,23 +7,6 @@ window.scrollToSection = function (sectionId) {
   if (section) section.scrollIntoView({ behavior: "smooth" });
 };
 
-// Set "Debit" as the default option and load expenses on page load
-window.onload = function () {
-  document.getElementById("type").value = "Debit";
-  toggleCategoryField();
-  loadExpenses();
-  renderPieChart();
-  showSlide(0); // Show the first slide in the carousel
-};
-
-// Toggle Category Field based on Credit/Debit selection
-document.getElementById("type").addEventListener("change", toggleCategoryField);
-
-function toggleCategoryField() {
-  const categoryField = document.getElementById("category-field");
-  categoryField.style.display = document.getElementById("type").value === "Debit" ? "block" : "none";
-}
-
 // Event listener for Generate Character and "I'm Feeling Lucky!" buttons
 ["generate-character", "feeling-lucky"].forEach(id => {
   document.getElementById(id).addEventListener("click", fetchCharacterImage);
@@ -40,6 +23,23 @@ function fetchCharacterImage() {
       console.error("Error fetching character image:", error);
       document.getElementById("character-result").innerHTML = `<p>Error generating character. Please try again later.</p>`;
     });
+}
+
+// Set "Debit" as the default option and load expenses on page load
+window.onload = function () {
+  document.getElementById("type").value = "Debit";
+  toggleCategoryField();
+  loadExpenses();
+  renderPieChart();
+  showSlide(0); // Show the first slide in the carousel
+};
+
+// Toggle Category Field based on Credit/Debit selection
+document.getElementById("type").addEventListener("change", toggleCategoryField);
+
+function toggleCategoryField() {
+  const categoryField = document.getElementById("category-field");
+  categoryField.style.display = document.getElementById("type").value === "Debit" ? "block" : "none";
 }
 
 // Handle Expense Form Submission
@@ -109,11 +109,17 @@ function calculateSpendingData() {
 }
 
 // Function to render pie chart with dynamic data
+let pieChart;
+
 function renderPieChart() {
   const spendingData = calculateSpendingData();
-
   const ctx = document.getElementById("spendingChart").getContext("2d");
-  new Chart(ctx, {
+
+  if (pieChart) {
+    pieChart.destroy();
+  }
+
+  pieChart = new Chart(ctx, {
     type: "pie",
     data: {
       labels: spendingData.labels,
@@ -131,9 +137,29 @@ function renderPieChart() {
   });
 }
 
-// Update slider values on input
-["time_horizon", "risk_appetite"].forEach(id => {
-  document.getElementById(id).addEventListener("input", function () {
-    document.getElementById(`${id}_value`).textContent = this.value;
-  });
+// Handle Generate Savings Strategy form submission
+document.getElementById("generate-savings").addEventListener("click", function (event) {
+  event.preventDefault(); // Prevent the default button behavior
+
+  // Get form data from 'expense-form' instead of the button itself
+  const form = document.getElementById("expense-form");
+  if (form) {
+    const formData = new FormData(form);
+
+    // AJAX request using fetch API
+    fetch("/generate_savings_strategy", {
+      method: "POST",
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("savings-result").innerHTML = `<p>${data.savings_strategy || 'No data received'}</p>`;
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        document.getElementById("savings-result").innerHTML = `<p>Error generating savings strategy. Please try again later.</p>`;
+      });
+  } else {
+    console.error("Form element not found");
+  }
 });

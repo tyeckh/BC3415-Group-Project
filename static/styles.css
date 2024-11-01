@@ -83,6 +83,8 @@ button, #generate-character, #feeling-lucky, #generate-savings {
     max-width: 250px;
     text-align: center;
     transition: background-color 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 button:hover, #generate-character:hover, #feeling-lucky:hover, #generate-savings:hover {
