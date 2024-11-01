@@ -164,14 +164,15 @@ form input, form select, form textarea, #character-prompt, #goal {
     text-align: left;
 }
 
-#history th, #history td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
+#history th,
+#history td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
 }
 
 #history th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 /* Responsive Media Queries */

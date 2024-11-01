@@ -163,3 +163,119 @@ document.getElementById("generate-savings").addEventListener("click", function (
     console.error("Form element not found");
   }
 });
+<<<<<<< Updated upstream
+=======
+
+document.getElementById("risk_appetite").addEventListener("input", function () {
+  document.getElementById("risk_value").textContent = this.value;
+});
+
+// Set "Debit" as the default option on load
+window.onload = function () {
+  document.getElementById("type").value = "Debit"; // Set Debit as default
+  document.getElementById("category-field").style.display = "block"; // Show category field by default
+
+  let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+  expenses.forEach((expense) => addExpenseToTable(expense));
+  renderPieChart();
+};
+
+// Toggle Category Field based on Credit/Debit selection
+document.getElementById("type").addEventListener("change", function () {
+  const categoryField = document.getElementById("category-field");
+  categoryField.style.display = this.value === "Debit" ? "block" : "none";
+});
+
+// Carousel Functionality
+let currentSlide = 0;
+
+// Touch event variables
+let startX = 0;
+let endX = 0;
+
+// Add touch event listeners to detect swipe
+const carouselContainer = document.querySelector(".carousel-container");
+carouselContainer.addEventListener("touchstart", handleTouchStart, false);
+carouselContainer.addEventListener("touchend", handleTouchEnd, false);
+
+function handleTouchStart(event) {
+  startX = event.touches[0].clientX;
+}
+
+function handleTouchEnd(event) {
+  endX = event.changedTouches[0].clientX;
+  handleSwipe();
+}
+
+function handleSwipe() {
+  const swipeThreshold = 50; // Minimum distance for a swipe to be considered
+
+  if (startX - endX > swipeThreshold) {
+    // Swipe left
+    moveSlide(1);
+  } else if (endX - startX > swipeThreshold) {
+    // Swipe right
+    moveSlide(-1);
+  }
+}
+
+function moveSlide(direction) {
+  const slides = document.querySelectorAll(".carousel-slide");
+  currentSlide =
+    (currentSlide + direction + slides.length) % slides.length;
+  showSlide(currentSlide);
+}
+
+function showSlide(index) {
+  currentSlide = index;
+  const carousel = document.querySelector(".carousel-container");
+  carousel.style.transform = `translateX(-${index * 100}%)`;
+  updateDots();
+}
+
+function updateDots() {
+  const dots = document.querySelectorAll(".dot");
+  dots.forEach((dot) => dot.classList.remove("active"));
+  dots[currentSlide].classList.add("active");
+}
+
+// AJAX form submission
+document
+  .getElementById("financial-plan-form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this);
+
+    // Show the loading spinner and move to the result slide
+    document.getElementById("loading-spinner").style.display = "block";
+    showSlide(1);
+
+    // AJAX request using fetch API
+    fetch("/generate_financial_plan", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json()) // Parse the response as JSON
+      .then((data) => {
+        // Hide the loading spinner
+        document.getElementById("loading-spinner").style.display = "none";
+        // Update the result slide with the financial plan text
+        document.getElementById(
+          "planning_result"
+        ).innerHTML = `<p>${data.financial_plan}</p>`;
+      })
+      .catch((error) => {
+        document.getElementById("loading-spinner").style.display = "none";
+        document.getElementById("planning_result").innerHTML =
+          "<p>Error: Could not generate the financial plan.</p>";
+        console.error("Error:", error);
+      });
+  });
+
+document.addEventListener("DOMContentLoaded", () => {
+  showSlide(0); // Show the first slide on load
+});
+
+console.log("script.js loaded successfully");
+>>>>>>> Stashed changes
