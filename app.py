@@ -5,8 +5,11 @@ from flask import Flask, render_template, request, jsonify, send_file
 import markdown
 
 app = Flask(__name__)
-API_KEY = "AIzaSyAq7-KBx4OHHOUL_Q10es6EIEsZnsW8mOM"
-genai.configure(api_key=API_KEY)
+
+# Configure API key
+api = os.getenv("MAKERSUITE_API_TOKEN") 
+genai.configure(api_key=api)
+
 
 # Initialize the GenAI model once
 model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
