@@ -16,6 +16,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
+    <!-- Fixed Login Button in Top Right -->
+    <button class="login-btn" onclick="showLoginModal()">
+      <img
+        src="{{ url_for('static', filename='assets/login.png') }}"
+        alt="Login Icon"
+        style="width: 16px; height: 16px; margin-right: 5px"
+      />
+      Login
+    </button>
+
     <!-- Landing Page -->
     <div class="landing-page">
       <h1>WealthWise</h1>
@@ -43,6 +53,102 @@
         </button>
       </div>
     </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeLoginModal()">&times;</span>
+        <h2>Login</h2>
+        <form id="login-form">
+          <label for="username">Username:</label>
+          <input type="text" id="username" required />
+          <label for="password">Password:</label>
+          <input type="password" id="password" required />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <style>
+      /* Login button styling */
+      .login-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: transparent;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #004080;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.3s;
+        z-index: 1000; /* Ensure it appears on top */
+      }
+
+      .login-btn:hover {
+        background-color: #004080;
+        color: #ffffff;
+      }
+
+      /* Modal styling */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+      }
+    </style>
+
+    <script>
+      // Show the login modal
+      function showLoginModal() {
+        document.getElementById("loginModal").style.display = "block";
+      }
+
+      // Close the login modal
+      function closeLoginModal() {
+        document.getElementById("loginModal").style.display = "none";
+      }
+
+      // Close modal when clicking outside of it
+      window.onclick = function (event) {
+        const modal = document.getElementById("loginModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
 
     <!-- Create Your Character Section -->
     <section id="character-section" , class="section">
