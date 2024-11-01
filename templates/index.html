@@ -114,29 +114,6 @@
         <p>{{ savings_strategy | safe}}</p>
         {% endif %}
       </div>
-      <script>
-        // AJAX form submission
-        document
-          .getElementById("generate-savings")
-          .addEventListener("click", function () {
-            event.preventDefault(); // Prevent the default form submission
-            const formData = new FormData(this);
-
-            // AJAX request using fetch API
-            fetch("/generate_savings_strategy", {
-              method: "POST",
-              body: formData,
-            })
-              .then((response) => response.json()) // Parse the response as JSON
-              .then((data) => {
-                // Update the result slide with the financial plan text
-                document.getElementById(
-                  "savings-result"
-                ).innerHTML = `<p>${data.savings_strategy}</p>`;
-              })
-              .catch((error) => console.error("Error:", error));
-          });
-      </script>
     </section>
 
     <!-- Section 3: Financial Planning -->
