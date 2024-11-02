@@ -7,9 +7,8 @@ import markdown
 app = Flask(__name__)
 
 # Configure API key
-# api = os.getenv("MAKERSUITE_API_TOKEN") 
-# genai.configure(api_key=api)
-genai.configure(api_key='AIzaSyAJiza0dAHEkFf96rN-FAaIZG7mEGBqmoc')
+api = os.getenv("MAKERSUITE_API_TOKEN") 
+genai.configure(api_key=api)
 
 # Initialize the GenAI model once
 model = genai.GenerativeModel(model_name='gemini-1.5-flash-8b')
