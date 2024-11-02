@@ -397,3 +397,51 @@ form textarea,
     max-width: 220px; /* Further limit max width on small screens */
   }
 }
+
+
+/* Contact Us Section */
+#contact-section {
+  padding: 20px;
+  
+  max-width: 600px; /* Limit the width of the form */
+  margin: 20px auto; /* Center the form */
+}
+
+#contact-section h2 {
+  margin-bottom: 15px;
+  font-size: 2rem;
+  color: #003366; /* Match with other headers */
+}
+
+#contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#contact-form label {
+  margin: 10px 0 5px; /* Space above and below labels */
+  font-size: 1rem;
+  color: #004080; /* Darker text for readability */
+}
+
+#contact-form input, #contact-form textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#contact-form button {
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#contact-form button:hover {
+  background-color: #005bb5; /* Darker blue on hover */
+}
