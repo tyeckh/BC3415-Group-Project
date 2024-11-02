@@ -284,8 +284,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 console.log("script.js loaded successfully");
 
+
 //Email Function
-function sendEmail() {
+function sendEmail(event) {
+  // Prevent the default form submission
+  event.preventDefault();
+
   let parms = {
       contact_name: document.getElementById("contact_name").value,
       email: document.getElementById("email").value,
@@ -293,5 +297,11 @@ function sendEmail() {
       message: document.getElementById("message").value,
   };
   
-  emailjs.send('service_0uo416r', 'template_rqk459a', parms).then(alert("Email Sent!"));
+  emailjs.send('service_0uo416r', 'template_rqk459a', parms)
+  .then(() => {
+      alert("Email Sent!"); // Success alert
+  }, function(error) {
+      alert("Failed to send email. Please try again later."); // Error alert
+      console.error('EmailJS Error:', error); // Log the error for debugging
+  });
 }
