@@ -287,18 +287,11 @@ console.log("script.js loaded successfully");
 //Email Function
 function sendEmail() {
   let parms = {
-      name: document.getElementById("contact-name").value,
+      contact_name: document.getElementById("contact_name").value,
       email: document.getElementById("email").value,
       subject: document.getElementById("subject").value,
       message: document.getElementById("message").value,
   };
   
-  emailjs.send('service_0uo416r', 'template_rqk459a', parms)
-    .then(() => {
-        alert("Email Sent!"); // Success alert
-    }, function(error) {
-        alert("Failed to send email. Please try again later."); // Error alert
-        console.error('EmailJS Error:', error); // Log the error for debugging
-    });
-
+  emailjs.send('service_0uo416r', 'template_rqk459a', parms).then(alert("Email Sent!"));
 }
