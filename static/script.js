@@ -1,5 +1,3 @@
-console.log("script.js loaded successfully");
-
 // Smooth scroll to section
 window.scrollToSection = function (sectionId) {
   const section = document.getElementById(sectionId);
@@ -282,9 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
   showSlide(0); // Show the first slide on load
 });
 
-console.log("script.js loaded successfully");
-
-
 //Email Function
 emailjs.init({publicKey: 'TNxXByXHi_TSiUtj_'});
 document.getElementById("contact-form").addEventListener("submit", () =>{
@@ -306,3 +301,5 @@ document.getElementById("contact-form").addEventListener("submit", () =>{
       console.error('EmailJS Error:', error); // Log the error for debugging
   });
 });
+
+console.log("script.js loaded successfully");
