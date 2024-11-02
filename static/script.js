@@ -286,7 +286,8 @@ console.log("script.js loaded successfully");
 
 
 //Email Function
-function sendEmail(event) {
+emailjs.init({publicKey: 'TNxXByXHi_TSiUtj_'});
+document.getElementById("contact-form").addEventListener("submit", () =>{
   // Prevent the default form submission
   event.preventDefault();
 
@@ -304,4 +305,4 @@ function sendEmail(event) {
       alert("Failed to send email. Please try again later."); // Error alert
       console.error('EmailJS Error:', error); // Log the error for debugging
   });
-}
+});
