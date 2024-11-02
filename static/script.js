@@ -8,20 +8,24 @@ window.scrollToSection = function (sectionId) {
 };
 
 // Event listener for Generate Character and "I'm Feeling Lucky!" buttons
-["generate-character", "feeling-lucky"].forEach(id => {
+["generate-character", "feeling-lucky"].forEach((id) => {
   document.getElementById(id).addEventListener("click", fetchCharacterImage);
 });
 
 function fetchCharacterImage() {
   fetch("/generate-character")
-    .then(response => response.blob())
-    .then(imageBlob => {
+    .then((response) => response.blob())
+    .then((imageBlob) => {
       const imageUrl = URL.createObjectURL(imageBlob);
-      document.getElementById("character-result").innerHTML = `<img src="${imageUrl}" alt="Generated Character" />`;
+      document.getElementById(
+        "character-result"
+      ).innerHTML = `<img src="${imageUrl}" alt="Generated Character" />`;
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Error fetching character image:", error);
-      document.getElementById("character-result").innerHTML = `<p>Error generating character. Please try again later.</p>`;
+      document.getElementById(
+        "character-result"
+      ).innerHTML = `<p>Error generating character. Please try again later.</p>`;
     });
 }
 
@@ -39,26 +43,32 @@ document.getElementById("type").addEventListener("change", toggleCategoryField);
 
 function toggleCategoryField() {
   const categoryField = document.getElementById("category-field");
-  categoryField.style.display = document.getElementById("type").value === "Debit" ? "block" : "none";
+  categoryField.style.display =
+    document.getElementById("type").value === "Debit" ? "block" : "none";
 }
 
 // Handle Expense Form Submission
-document.getElementById("expense-form").addEventListener("submit", function (e) {
-  e.preventDefault();
+document
+  .getElementById("expense-form")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  const expense = {
-    name: document.getElementById("name").value,
-    type: document.getElementById("type").value,
-    category: document.getElementById("type").value === "Debit" ? document.getElementById("category").value : "N/A",
-    amount: parseFloat(document.getElementById("amount").value)
-  };
+    const expense = {
+      name: document.getElementById("name").value,
+      type: document.getElementById("type").value,
+      category:
+        document.getElementById("type").value === "Debit"
+          ? document.getElementById("category").value
+          : "N/A",
+      amount: parseFloat(document.getElementById("amount").value),
+    };
 
-  saveExpense(expense);
-  addExpenseToTable(expense);
-  renderPieChart();
-  this.reset();
-  toggleCategoryField();
-});
+    saveExpense(expense);
+    addExpenseToTable(expense);
+    renderPieChart();
+    this.reset();
+    toggleCategoryField();
+  });
 
 function saveExpense(expense) {
   const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
@@ -96,15 +106,18 @@ function calculateSpendingData() {
     Other: 0,
   };
 
-  expenses.forEach(expense => {
-    if (expense.type === "Debit" && spendingByCategory[expense.category] !== undefined) {
+  expenses.forEach((expense) => {
+    if (
+      expense.type === "Debit" &&
+      spendingByCategory[expense.category] !== undefined
+    ) {
       spendingByCategory[expense.category] += expense.amount;
     }
   });
 
   return {
     labels: Object.keys(spendingByCategory),
-    data: Object.values(spendingByCategory)
+    data: Object.values(spendingByCategory),
   };
 }
 
@@ -123,60 +136,63 @@ function renderPieChart() {
     type: "pie",
     data: {
       labels: spendingData.labels,
-      datasets: [{
-        label: "Spending Categories",
-        data: spendingData.data,
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
-        hoverOffset: 4,
-      }],
+      datasets: [
+        {
+          label: "Spending Categories",
+          data: spendingData.data,
+          backgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#4BC0C0",
+            "#9966FF",
+          ],
+          hoverOffset: 4,
+        },
+      ],
     },
     options: {
       responsive: true,
-      plugins: { legend: { position: "top" } }
-    }
+      plugins: { legend: { position: "top" } },
+    },
   });
 }
 
-document.getElementById("generate-savings").addEventListener("click", function (event) {
-  event.preventDefault(); // Prevent the default button behavior
+document
+  .getElementById("generate-savings")
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent the default button behavior
 
-  // Get form data from 'expense-form'
-  const form = document.getElementById("expense-form");
-  if (form) {
-    const formData = new FormData(form);
+    // Create a new FormData object
+    const formData = new FormData();
 
-    // Check that the data is correctly sent
-    if (!formData.has("spending_habits")) {
-      formData.append("spending_habits", JSON.stringify(loadExpensesFromLocalStorage())); // Custom function to load data
-    }
+    // Get expenses from localStorage and append to FormData
+    const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+    formData.append("spending_habits", JSON.stringify(expenses));
 
     // Send the form data via fetch
     fetch("/generate_savings_strategy", {
       method: "POST",
       body: formData,
     })
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById("savings-result").innerHTML = `<p>${data.savings_strategy || 'No data received'}</p>`;
+      .then((response) => response.json())
+      .then((data) => {
+        document.getElementById("savings_result").innerHTML = `<p>${
+          data.savings_strategy || "No data received"
+        }</p>`;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error:", error);
-        document.getElementById("savings-result").innerHTML = `<p>Error generating savings strategy. Please try again later.</p>`;
+        document.getElementById(
+          "savings_result"
+        ).innerHTML = `<p>Error generating savings strategy. Please try again later.</p>`;
       });
-  } else {
-    console.error("Form element not found");
-  }
-});
+  });
 
-
-// Carousel Functionality
+// Financial Planning and Carousel Functionality
 let currentSlide = 0;
-
-// Touch event variables
-let startX = 0;
-let endX = 0;
-
-// Add touch event listeners to detect swipe
+let startX = 0; // Touch start position
+let endX = 0; // Touch end position
 const carouselContainer = document.querySelector(".carousel-container");
 carouselContainer.addEventListener("touchstart", handleTouchStart, false);
 carouselContainer.addEventListener("touchend", handleTouchEnd, false);
@@ -204,10 +220,16 @@ function handleSwipe() {
 
 function moveSlide(direction) {
   const slides = document.querySelectorAll(".carousel-slide");
-  currentSlide =
-    (currentSlide + direction + slides.length) % slides.length;
+  currentSlide = (currentSlide + direction + slides.length) % slides.length;
   showSlide(currentSlide);
 }
+
+document
+  .querySelector(".left-arrow")
+  .addEventListener("click", () => moveSlide(-1));
+document
+  .querySelector(".right-arrow")
+  .addEventListener("click", () => moveSlide(1));
 
 function showSlide(index) {
   currentSlide = index;

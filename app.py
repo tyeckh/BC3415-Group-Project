@@ -52,7 +52,7 @@ def generate_savings_strategy():
             if not spending_habits:
                 return jsonify({'error': 'No spending habits provided'}), 400
 
-            prompt = f"""Create a personalized savings strategy. Keep it concise but precise and easy to understand. Minimize bullet points.
+            prompt = f"""Create a personalized savings strategy. Keep it concise but precise and easy to understand.
                         These are the current spending habits of the user: {spending_habits}. Include the following:
                         1. How much to save monthly 2. Where to save 3. How to save. 4. How to track progress.
                         5. How to adjust the strategy. 6. Long-term lifestyle changes.
