@@ -71,13 +71,12 @@ html {
 /* Full-Screen Section Styling */
 .section,
 .landing-page {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 20px;
-  box-sizing: border-box;
+  min-height: 100vh;
   background-color: #f0f0f0;
   text-align: center;
 }
@@ -398,11 +397,10 @@ form textarea,
   }
 }
 
-
 /* Contact Us Section */
 #contact-section {
   padding: 20px;
-  
+
   max-width: 600px; /* Limit the width of the form */
   margin: 20px auto; /* Center the form */
 }
@@ -424,7 +422,8 @@ form textarea,
   color: #004080; /* Darker text for readability */
 }
 
-#contact-form input, #contact-form textarea {
+#contact-form input,
+#contact-form textarea {
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -444,4 +443,45 @@ form textarea,
 
 #contact-form button:hover {
   background-color: #005bb5; /* Darker blue on hover */
+}
+
+/* Flip card styling */
+.flip-card {
+  position: relative;
+  width: 400px; /* Match the image width */
+  height: auto;
+  margin-bottom: 40px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+/* Common styles for both images */
+.flip-card img {
+  width: 100%;
+  height: auto;
+  backface-visibility: hidden;
+  transition: transform 1s;
+}
+
+/* Front image styles */
+.front-image {
+  transform: rotateY(0deg); /* Default state */
+}
+
+/* Back image styles */
+.back-image {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
+/* Flip effect on .flipped class */
+.flipped .front-image {
+  transform: rotateY(180deg);
+}
+
+.flipped .back-image {
+  transform: rotateY(360deg);
 }
