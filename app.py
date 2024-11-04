@@ -36,6 +36,7 @@ def generate_financial_plan():
             )
             
             response = model.generate_content(prompt).text
+            print(response)
             markdown_response = markdown.markdown(response)
             
             return jsonify({'financial_plan': markdown_response})
@@ -77,7 +78,6 @@ character_images = [
 current_image_index = 0
 
 @app.route('/generate-character', methods=['GET'])
-
 def generate_character():
     global current_image_index
     chosen_image = character_images[current_image_index]

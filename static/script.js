@@ -222,13 +222,6 @@ function moveSlide(direction) {
   showSlide(currentSlide);
 }
 
-document
-  .querySelector(".left-arrow")
-  .addEventListener("click", () => moveSlide(-1));
-document
-  .querySelector(".right-arrow")
-  .addEventListener("click", () => moveSlide(1));
-
 function showSlide(index) {
   currentSlide = index;
   const carousel = document.querySelector(".carousel-container");

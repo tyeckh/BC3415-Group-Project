@@ -30,7 +30,6 @@ html {
   box-sizing: border-box;
 }
 
-
 .login-btn:hover {
   background-color: #e0e0e0; /* Optional: subtle hover effect */
 }
@@ -207,6 +206,13 @@ form textarea,
   color: #004080;
 }
 
+#planning-section {
+  width: 100%;
+  max-width: 100vw; /* Restrict width to viewport width */
+  padding: 10px; /* Add padding to keep content within screen bounds */
+  box-sizing: border-box; /* Include padding within the element width */
+}
+
 /* Centered Chart and Button */
 #spendingChart {
   margin: 20px auto;
@@ -254,17 +260,24 @@ form textarea,
 }
 
 /* Carousel Styling */
+
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
   max-width: 100%; /* Full width on smaller screens */
   margin: auto;
   padding: 0 10px;
+  display: flex; /* Add this to center the content */
+  flex-direction: column;
+  justify-content: center; /* Center the carousel-container */
+  text-align: center; /* Ensure text and elements inside are centered */
 }
 
 .carousel-container {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  margin: 0 auto; /* Center within the wrapper */
+  max-width: 100%; /* Ensures full width of viewport */
 }
 
 .carousel-slide {
@@ -273,9 +286,25 @@ form textarea,
   box-sizing: border-box;
   padding: 10px;
   text-align: left;
+  word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 600px; /* Restrict slide width for better fit */
   margin: auto;
+}
+
+#financial-plan-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  margin: 0 auto; /* Center the form within its parent */
+  width: 100%; /* Make form responsive */
+  max-width: 400px; /* Set a max-width to avoid stretching */
+}
+
+#result-slide {
+  width: 100%;
+  max-width: 100%;
+  text-align: justify;
 }
 
 /* Responsive font size */
@@ -292,27 +321,7 @@ form textarea,
   }
 }
 
-/* Arrow Styling */
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: #333;
-  transform: translateY(-50%);
-  z-index: 10;
-}
-
-.left-arrow {
-  left: 10px;
-}
-
-.right-arrow {
-  right: 10px;
-}
-
+/* Carousel Navigation */
 .carousel-dots {
   display: flex;
   justify-content: center;
@@ -350,52 +359,6 @@ form textarea,
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-/* Responsive Media Queries */
-
-/* Medium screens (tablets) */
-@media (max-width: 768px) {
-  .landing-page h1,
-  .section h2 {
-    font-size: 2rem;
-  }
-  .tagline {
-    font-size: 1rem;
-  }
-  button,
-  #generate-character,
-  #feeling-lucky,
-  #generate-savings {
-    font-size: 1rem;
-    padding: 12px 25px; /* Slightly reduced padding */
-  }
-  .button-container {
-    width: 90%; /* Adjusted width to fit smaller screens */
-    max-width: 250px; /* Ensure a maximum width for buttons */
-  }
-}
-
-/* Small screens (mobile) */
-@media (max-width: 480px) {
-  .landing-page h1,
-  .section h2 {
-    font-size: 1.8rem;
-  }
-  .tagline {
-    font-size: 0.9rem;
-  }
-  button,
-  #generate-character,
-  #feeling-lucky,
-  #generate-savings {
-    font-size: 0.9rem; /* Slightly smaller font for mobile */
-    padding: 10px 20px; /* Adjusted padding for compact look */
-  }
-  .button-container {
-    width: 95%; /* Maximize space usage on mobile */
-    max-width: 220px; /* Further limit max width on small screens */
   }
 }
 
@@ -486,4 +449,53 @@ form textarea,
 
 .flipped .back-image {
   transform: rotateY(360deg);
+}
+
+/* Responsive Media Queries */
+
+/* Medium screens (tablets) */
+@media (max-width: 768px) {
+  .landing-page h1,
+  .section h2 {
+    font-size: 2rem;
+  }
+  .tagline {
+    font-size: 1rem;
+  }
+  button,
+  #generate-character,
+  #feeling-lucky,
+  #generate-savings {
+    font-size: 1rem;
+    padding: 12px 25px; /* Slightly reduced padding */
+  }
+  .button-container {
+    width: 90%; /* Adjusted width to fit smaller screens */
+    max-width: 250px; /* Ensure a maximum width for buttons */
+  }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 480px) {
+  .landing-page h1,
+  .section h2 {
+    font-size: 1.8rem;
+  }
+  .tagline {
+    font-size: 0.9rem;
+  }
+  button,
+  #generate-character,
+  #feeling-lucky,
+  #generate-savings {
+    font-size: 0.9rem; /* Slightly smaller font for mobile */
+    padding: 10px 20px; /* Adjusted padding for compact look */
+  }
+  .button-container {
+    width: 95%; /* Maximize space usage on mobile */
+    max-width: 220px; /* Further limit max width on small screens */
+  }
+  #planning-section {
+    padding: 0 10px; /* Reduced padding on very small screens */
+  }
 }
