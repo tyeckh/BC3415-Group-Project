@@ -84,5 +84,9 @@ def generate_character():
     current_image_index = (current_image_index + 1) % len(character_images)
     return send_file(chosen_image, mimetype='image/png')
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="3415", debug=True)

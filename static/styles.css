@@ -463,6 +463,17 @@ form textarea,
   transform: rotateY(0deg);
 }
 
+/* Footer Styling */
+.footer {
+  margin-top: auto;
+  background-color: #f8f9fa; /* Adjust background color as needed */
+  text-align: center;
+  font-size: 14px;
+  color: #333; /* Adjust text color as needed */
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
 /* Responsive Media Queries */
 
 /* Medium screens (tablets) */
