@@ -1,6 +1,9 @@
 // Smooth scroll to section
 window.scrollToSection = function (sectionId) {
   const section = document.getElementById(sectionId);
+  if (sectionId === 'landing-page') {
+    section.style.paddingTop = "80px"; 
+  }
   console.log("Scrolling to section:", sectionId);
   if (section) section.scrollIntoView({ behavior: "smooth" });
 };

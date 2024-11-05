@@ -42,19 +42,24 @@
   </button>
 </div>
 
-    <!-- Landing Page -->
-    <div id="landing-page" class="landing-page">
-      <h1>WealthWise</h1>
-
-      <!-- Logo under the title -->
-      <p class="tagline">Your path to smarter savings and better planning</p>
+<!-- Landing Page -->
+<div id="landing-page" class="landing-page">
+  <div class="title-container">
+    <!-- Logo next to the title -->
+    <img
+      src="{{ url_for('static', filename='assets/wealthwise-logo.png') }}"
+      alt="WealthWise Logo"
+      class="title-logo"
+    />
+    <h1 class="title-text">WealthWise</h1>
+  </div>
+  <p class="tagline">Your path to smarter savings and better planning</p>
       <!--
       <img
         src="{{ url_for('static', filename='assets/wealthwise-logo.png') }}"
         alt="WealthWise Logo"
         style="width: 400px; height: auto"
       />
-      -->
       <script src="{{ url_for('static', filename='easter-egg.js') }}"></script>
       <div class="flip-card">
         <img
@@ -69,7 +74,9 @@
           alt="Easter Egg Image"
           style="width: 250px; height: auto"
         />
+
       </div>
+      -->
 
       <div class="button-container">
         <button onclick="scrollToSection('character-section')">
@@ -282,8 +289,7 @@
         <a href="/contact">Contact Us</a>
       </div>
       <p>&copy; 2024 WealthWise, an AI Finance App Prototype.</p>
-      <p> All rights reserved. </p>
-      <p> BC3415 S04 Team 7. </p>
+      <p> By BC3415 S04 Team 7. All rights reserved.</p>
     </footer>
   </body>
 </html>
