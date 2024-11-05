@@ -465,13 +465,26 @@ form textarea,
 
 /* Footer Styling */
 .footer {
-  margin-top: auto;
-  background-color: #f8f9fa; /* Adjust background color as needed */
   text-align: center;
+  background-color: #f0f0f0; 
   font-size: 14px;
-  color: #333; /* Adjust text color as needed */
+  color: #555; /* Adjust text color as needed */
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   width: 100%;
+  padding: 15px 0;
+}
+
+.footer a {
+  color: #004080; /* Match link color to theme */
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: inline-block; /* Allows margin */
+}
+
+.footer p {
+  margin: 5px 0; /* Reduce spacing between lines */
+  line-height: 1.5; /* Improve readability */
 }
 
 /* Responsive Media Queries */
@@ -490,11 +503,12 @@ form textarea,
   #feeling-lucky,
   #generate-savings {
     font-size: 1rem;
-    padding: 12px 25px; /* Slightly reduced padding */
+    padding: 10px 20px; /* Slightly reduced padding */
   }
   .button-container {
     width: 90%; /* Adjusted width to fit smaller screens */
     max-width: 250px; /* Ensure a maximum width for buttons */
+    gap: 8px;
   }
 }
 
@@ -512,11 +526,12 @@ form textarea,
   #feeling-lucky,
   #generate-savings {
     font-size: 0.9rem; /* Slightly smaller font for mobile */
-    padding: 10px 20px; /* Adjusted padding for compact look */
+    padding: 15px 25px; /* Adjusted padding for compact look */
   }
   .button-container {
     width: 95%; /* Maximize space usage on mobile */
-    max-width: 220px; /* Further limit max width on small screens */
+    max-width: 250px; /* Further limit max width on small screens */
+    gap: 5px;
   }
   #planning-section {
     padding: 0 10px; /* Reduced padding on very small screens */

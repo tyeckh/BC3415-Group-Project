@@ -235,6 +235,23 @@ function updateDots() {
   dots[currentSlide].classList.add("active");
 }
 
+// Function to control carousel slide
+function showSlide(index) {
+  const slides = document.getElementsByClassName('carousel-slide');
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = i === index ? 'block' : 'none';
+  }
+}
+
+// Prevent carousel sliding when using sliders
+document.getElementById('time_horizon').addEventListener('touchstart', (e) => {
+  e.stopPropagation(); // Prevents touch event from propagating to the carousel
+});
+
+document.getElementById('risk_appetite').addEventListener('touchstart', (e) => {
+  e.stopPropagation();
+});
+
 // AJAX form submission
 document
   .getElementById("financial-plan-form")
