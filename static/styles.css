@@ -212,8 +212,7 @@ html {
 }
 
 /* Standard Button Styling */
-button,
-#generate-character,
+button, #generate-character,
 #feeling-lucky,
 #generate-savings {
   padding: 12px 25px;
@@ -227,6 +226,10 @@ button,
   max-width: 250px;
   text-align: center;
   transition: background-color 0.3s;
+}
+#generate-character,
+#feeling-lucky,
+#generate-savings {
   margin-bottom: 10px;
 }
 
