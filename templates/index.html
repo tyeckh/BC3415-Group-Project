@@ -19,18 +19,31 @@
     <script src="script.js"></script>
   </head>
   <body>
-    <!-- Fixed Login Button in Top Right -->
-    <button class="login-btn" onclick="showLoginModal()">
-      <img
-        src="{{ url_for('static', filename='assets/login.png') }}"
-        alt="Login Icon"
-        style="width: 16px; height: 16px; margin-right: 5px"
-      />
-      Login
-    </button>
+    
+<!-- Top Bar -->
+<div class="top-bar">
+  <!-- Logo -->
+  <a href="javascript:void(0);" class="logo-link" onclick="scrollToSection('landing-page')">
+    <img
+      src="{{ url_for('static', filename='assets/wealthwise-named-logo.png') }}"
+      alt="WealthWise Logo"
+      class="logo"
+    />
+  </a>
+
+  <!-- Login Button -->
+  <button class="login-btn" onclick="showLoginModal()">
+    <img
+      src="{{ url_for('static', filename='assets/login.png') }}"
+      alt="Login Icon"
+      style="width: 16px; height: 16px; margin-right: 5px"
+    />
+    Login
+  </button>
+</div>
 
     <!-- Landing Page -->
-    <div class="landing-page">
+    <div id="landing-page" class="landing-page">
       <h1>WealthWise</h1>
 
       <!-- Logo under the title -->
