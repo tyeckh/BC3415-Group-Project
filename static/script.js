@@ -1,8 +1,8 @@
 // Smooth scroll to section
 window.scrollToSection = function (sectionId) {
   const section = document.getElementById(sectionId);
-  if (sectionId === 'landing-page') {
-    section.style.paddingTop = "80px"; 
+  if (sectionId === "landing-page") {
+    section.style.paddingTop = "80px";
   }
   console.log("Scrolling to section:", sectionId);
   if (section) section.scrollIntoView({ behavior: "smooth" });
@@ -208,7 +208,7 @@ function handleTouchEnd(event) {
 }
 
 function handleSwipe() {
-  const swipeThreshold = 50; // Minimum distance for a swipe to be considered
+  const swipeThreshold = 150; // Minimum distance for a swipe to be considered
 
   if (startX - endX > swipeThreshold) {
     // Swipe left
@@ -240,18 +240,18 @@ function updateDots() {
 
 // Function to control carousel slide
 function showSlide(index) {
-  const slides = document.getElementsByClassName('carousel-slide');
+  const slides = document.getElementsByClassName("carousel-slide");
   for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = i === index ? 'block' : 'none';
+    slides[i].style.display = i === index ? "block" : "none";
   }
 }
 
 // Prevent carousel sliding when using sliders
-document.getElementById('time_horizon').addEventListener('touchstart', (e) => {
+document.getElementById("time_horizon").addEventListener("touchstart", (e) => {
   e.stopPropagation(); // Prevents touch event from propagating to the carousel
 });
 
-document.getElementById('risk_appetite').addEventListener('touchstart', (e) => {
+document.getElementById("risk_appetite").addEventListener("touchstart", (e) => {
   e.stopPropagation();
 });
 
