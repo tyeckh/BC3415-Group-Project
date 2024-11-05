@@ -23,8 +23,9 @@ def generate_financial_plan():
         try:
             # Ensure required fields are present
             user_goal = request.form.get('goal')
-            time_horizon = request.form.get('time_horizon')
-            risk_appetite = request.form.get('risk_appetite')
+            time_horizon = request.form.get('time_value')
+            risk_appetite = request.form.get('risk_value')
+            print(f"Goal: {user_goal}, Time Horizon: {time_horizon}, Risk Appetite: {risk_appetite}")
 
             if not all([user_goal, time_horizon, risk_appetite]):
                 return jsonify({'error': 'Missing required fields in the form.'}), 400

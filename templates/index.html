@@ -11,49 +11,50 @@
     />
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
     ></script>
-    <script src="script.js"></script>
   </head>
   <body>
-    
-<!-- Top Bar -->
-<div class="top-bar">
-  <!-- Logo -->
-  <a href="javascript:void(0);" class="logo-link" onclick="scrollToSection('landing-page')">
-    <img
-      src="{{ url_for('static', filename='assets/wealthwise-named-logo.png') }}"
-      alt="WealthWise Logo"
-      class="logo"
-    />
-  </a>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <!-- Logo -->
+      <a
+        href="javascript:void(0);"
+        class="logo-link"
+        onclick="scrollToSection('landing-page')"
+      >
+        <img
+          src="{{ url_for('static', filename='assets/wealthwise-named-logo.png') }}"
+          alt="WealthWise Logo"
+          class="logo"
+        />
+      </a>
 
-  <!-- Login Button -->
-  <button class="login-btn" onclick="showLoginModal()">
-    <img
-      src="{{ url_for('static', filename='assets/login.png') }}"
-      alt="Login Icon"
-      style="width: 16px; height: 16px; margin-right: 5px"
-    />
-    Login
-  </button>
-</div>
+      <!-- Login Button -->
+      <button class="login-btn" onclick="showLoginModal()">
+        <img
+          src="{{ url_for('static', filename='assets/login.png') }}"
+          alt="Login Icon"
+          style="width: 16px; height: 16px; margin-right: 5px"
+        />
+        Login
+      </button>
+    </div>
 
-<!-- Landing Page -->
-<div id="landing-page" class="landing-page">
-  <div class="title-container">
-    <!-- Logo next to the title -->
-    <img
-      src="{{ url_for('static', filename='assets/wealthwise-logo.png') }}"
-      alt="WealthWise Logo"
-      class="title-logo"
-    />
-    <h1 class="title-text">WealthWise</h1>
-  </div>
-  <p class="tagline">Your path to smarter savings and better planning</p>
+    <!-- Landing Page -->
+    <div id="landing-page" class="landing-page">
+      <div class="title-container">
+        <!-- Logo next to the title -->
+        <img
+          src="{{ url_for('static', filename='assets/wealthwise-logo.png') }}"
+          alt="WealthWise Logo"
+          class="title-logo"
+        />
+        <h1 class="title-text">WealthWise</h1>
+      </div>
+      <p class="tagline">Your path to smarter savings and better planning</p>
       <!--
       <img
         src="{{ url_for('static', filename='assets/wealthwise-logo.png') }}"
@@ -83,13 +84,13 @@
           Create Your Character
         </button>
         <button onclick="scrollToSection('record-section')">
-          Enter Your Expenses
+          Enter Expenses
         </button>
         <button onclick="scrollToSection('saving-section')">
-          Savings Recommendations
+          Savings Strategy
         </button>
         <button onclick="scrollToSection('planning-section')">
-          Financial Strategy
+          Financial Outlook
         </button>
       </div>
     </div>
@@ -108,26 +109,6 @@
         </form>
       </div>
     </div>
-
-    <script>
-      // Show the login modal
-      function showLoginModal() {
-        document.getElementById("loginModal").style.display = "block";
-      }
-
-      // Close the login modal
-      function closeLoginModal() {
-        document.getElementById("loginModal").style.display = "none";
-      }
-
-      // Close modal when clicking outside of it
-      window.onclick = function (event) {
-        const modal = document.getElementById("loginModal");
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
-    </script>
 
     <!-- Create Your Character Section -->
     <section id="character-section" class="section">
@@ -216,29 +197,27 @@
             <form id="financial-plan-form">
               <label for="goal">Your Financial Goal:</label>
               <textarea id="goal" name="goal" rows="4" required></textarea>
-              <label for="time_horizon">Time Horizon (Years):</label>
+              <label for="time_value" id="time_horizon">Time Horizon (Years): 5 years</label>
               <input
                 type="range"
-                id="time_horizon"
-                name="time_horizon"
+                id="time_value"
+                name="time_value"
                 min="1"
                 max="30"
                 value="5"
-                oninput="document.getElementById('time_value').innerText = this.value"
+                oninput="document.getElementById('time_horizon').innerText = 'Time Horizon (Years): ' + this.value + ' years'"
               />
-              <span id="time_value">5</span> years
 
-              <label for="risk_appetite">Risk Appetite:</label>
+              <label for="risk_value" id="risk_appetite">Risk Appetite: 50%</label>
               <input
                 type="range"
-                id="risk_appetite"
-                name="risk_appetite"
+                id="risk_value"
+                name="risk_value"
                 min="0"
                 max="100"
                 value="50"
-                oninput="document.getElementById('risk_value').innerText = this.value"
+                oninput="document.getElementById('risk_appetite').innerText = 'Risk Appetite: ' + this.value + '%'"
               />
-              <span id="risk_value">50</span>% Risk
               <button type="submit">Generate Plan</button>
             </form>
           </div>
@@ -289,7 +268,7 @@
         <a href="/contact">Contact Us</a>
       </div>
       <p>&copy; 2024 WealthWise, an AI Finance App Prototype.</p>
-      <p> By BC3415 S04 Team 7. All rights reserved.</p>
+      <p>By BC3415 S04 Team 7. All rights reserved.</p>
     </footer>
   </body>
 </html>
