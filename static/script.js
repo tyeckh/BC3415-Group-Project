@@ -208,7 +208,7 @@ function handleTouchEnd(event) {
 }
 
 function handleSwipe() {
-  const swipeThreshold = 150; // Minimum distance for a swipe to be considered
+  const swipeThreshold = 400; // Minimum distance for a swipe to be considered
 
   if (startX - endX > swipeThreshold) {
     // Swipe left
